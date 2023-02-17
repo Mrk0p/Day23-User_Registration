@@ -1,63 +1,44 @@
 package com.bridgelabz.user_registration;
 
-import java.util.regex.Matcher;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
+@FunctionalInterface
+interface UserRegistrationInterface {
+    void userCheck();
+}
 public class UserRegistration {
 
-    public boolean firstName(String firstName) {
-        String regex = "^[A-Z]{1}[a-z]{2,}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(firstName);
-        return matcher.matches();
-    }
-    public boolean lastName(String lastName) {
-        String regex = "^[A-Z]{1}[a-z]{2,}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(lastName);
-        return matcher.matches();
-    }
-    public boolean email(String email) {
-        String regex = "^[a-z0-9]{3,}+([_+-.][a-z0-9]{3,}+)*@[a-z0-9]+.[a-z]{2,3}+(.[a-z]{2,3}){0,1}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-    public boolean mobileNumber(String number) {
-        String regex = "^(91)()[6-9]{1}[0-9]{9}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(number);
-        return matcher.matches();
-    }
-    public boolean password(String password) {
-        String regex = "((?=.*[A-Z]).{8,})";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-    public boolean password2(String password) {
-        String regex = "^((?=.*[A-Z])(?=.*[0-9]).{8,})";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
+    public static void main(String[] args) {
 
-    public boolean password3(String password) {
-        String regex = "((?=.[a-z]).{8,9})";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-    public boolean password4(String password) {
-        String regex = "((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$-%^&*]).{8,})";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-    public boolean emailIdValidator(String emailId) {
-        String regex = "^[a-z0-9]{3,}+([_+-.][a-z0-9]{3,}+)*@[a-z0-9]+.[a-z]{2,3}+(.[a-z]{2,3}){0,1}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(emailId);
-        return matcher.matches();
+        UserRegistrationInterface obj;
+        obj = () -> {
+            System.out.println("Welcome to User Registration");
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Enter first Name : ");
+            String firstName = scanner.next();
+            System.out.println(Pattern.matches("[A-Z][a-z]{2,}", firstName));
+
+            System.out.println("Enter last Name : ");
+            String lastName = scanner.next();
+            System.out.println(Pattern.matches("[A-Z][a-z]{2,}", lastName));
+
+            System.out.println("Enter email : ");
+            String email = scanner.next();
+            System.out.println(Pattern.matches(
+                    "^[a-zA-Z0-9]+([+_.-][a-zA-Z0-9]+)*[@][a-zA-Z0-9]+[.][a-zA-Z]{2,4}([.][a-zA-Z]{2,4})$", email));
+
+            System.out.println("Enter phone number: ");
+            String phoneNum = scanner.next();
+            System.out.println(Pattern.matches("^(0/91)?[7-9][0-9]{9}$", phoneNum));
+
+            System.out.println("Enter password : ");
+            String password = scanner.next();
+            System.out.println(Pattern.matches(
+                    "^(?=.*[A-Z])(?=.*[a-z])(?=[^@#$%^&+=]*[@#$%^&+=][^@#$%^&+=]*$)(?=.*[0-9]).{8,}$", password));
+
+        };
+        obj.userCheck();
     }
 }
